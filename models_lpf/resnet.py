@@ -151,7 +151,7 @@ class Bottleneck(nn.Module):
 
 class ResNet(nn.Module):
 
-    def __init__(self, block, layers, num_classes=1000, zero_init_residual=False,
+    def __init__(self, block, layers, num_classes=1000, num_channels=3, zero_init_residual=False,
                  groups=1, width_per_group=64, norm_layer=None, filter_size=1, pool_only=True):
         super(ResNet, self).__init__()
         if norm_layer is None:
@@ -160,9 +160,9 @@ class ResNet(nn.Module):
         self.inplanes = planes[0]
 
         if(pool_only):
-            self.conv1 = nn.Conv2d(3, planes[0], kernel_size=7, stride=2, padding=3, bias=False)
+            self.conv1 = nn.Conv2d(num_channels, planes[0], kernel_size=7, stride=2, padding=3, bias=False)
         else:
-            self.conv1 = nn.Conv2d(3, planes[0], kernel_size=7, stride=1, padding=3, bias=False)
+            self.conv1 = nn.Conv2d(num_channels, planes[0], kernel_size=7, stride=1, padding=3, bias=False)
         self.bn1 = norm_layer(planes[0])
         self.relu = nn.ReLU(inplace=True)
 
